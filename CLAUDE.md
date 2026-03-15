@@ -35,6 +35,9 @@ circe/
 ├── _config.yaml           # Jekyll / GitHub Pages config (just-the-docs-tweaked theme)
 ├── .gitignore             # Excludes all 318 JP2 page scans
 ├── fullraw.md             # Raw OCR dump from Internet Archive (~11,700 lines)
+├── pages_760w/            # Downscaled page scans (760px wide JPGs, gitignored)
+├── pages_txt/             # Per-page transcriptions from scans (tracked in git)
+│   └── b30535827_0020.txt ... (one .txt per page image)
 ├── abbr/                  # Abbreviated / abridged versions of dialogs
 │   ├── 1.md               # Dialog 1: Oyster (& Mole) — abridged (~51 lines)
 │   └── 2.md               # Dialog 2 — stub (~10 lines)
@@ -66,6 +69,9 @@ circe/
 - [ ] Dialogs 2–11: not yet transcribed
 - [ ] Determine the full list of dialogs and their animal/character pairings
 - [ ] Decide on a consistent approach to modernizing spelling vs. preserving period forms
+- [ ] Continue page-by-page transcription beyond page 0029 (see workflow below)
+- [ ] Second pass on `pages_txt/` to modernize spellings once raw transcription is complete
+- [ ] Assemble per-page transcriptions into full dialog chapters in `ch/`
 
 ## What has been tried
 
@@ -74,3 +80,21 @@ circe/
 - Some manual transcription and correction was done for Dialog 1 in `ch/1.md`.
 - Abbreviated versions were started in `abbr/` but seem to have been abandoned.
 - No automated OCR correction scripts or tools have been tried yet.
+- **Page-by-page transcription from scans** (2026-03-15): Transcribed pages 0020–0029
+  (printed pp. 6–15, Dialog I — Oister & Mole) from the 760px-wide JPGs using Claude's
+  vision. Results are in `pages_txt/`. This worked well — the downscaled images are
+  clearly readable. Marginal notes (e.g., the Portico footnote on p. 8) are rendered as
+  bracketed notes after the paragraph they annotate. Original spelling is preserved
+  exactly; only the long-s is corrected. Hyphenated line breaks are rejoined. Words split
+  across page boundaries end with `—` to mark continuation.
+
+## Page-by-page transcription workflow
+
+Each page in `pages_760w/` gets a matching `.txt` file in `pages_txt/`. Format:
+
+- First line: `[p. NN — Running Header]`
+- Speaker names on their own line followed by a period: `Ulysses.`
+- Italics marked with `*asterisks*`
+- Original spelling preserved exactly (only long-s → s corrected)
+- Marginal notes in brackets: `[* footnote text]`
+- Words split across pages end with `—`
