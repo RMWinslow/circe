@@ -181,7 +181,7 @@ for dialog_num, start, end, title in DIALOGS:
 
     outpath = os.path.join(CH_DIR, f"{dialog_num}.md")
     with open(outpath, "w", encoding="utf-8") as f:
-        f.write(f"---\ntitle: \"{title}\"\n---\n\n")
+        f.write(f"---\ntitle: \"{title}\"\nnav_order: {dialog_num}\n---\n\n")
         f.write(merged.strip() + "\n")
 
     print(f"  Dialog {dialog_num:2d}: {end - start + 1} pages -> ch/{dialog_num}.md")
