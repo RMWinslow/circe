@@ -1,4 +1,6 @@
 title: "La Circe"
+url: "https://rmwinslow.com"
+baseurl: "/circe"
 remote_theme: RMWinslow/just-the-docs-tweaked
 search_enabled: true
 
