@@ -1,7 +1,7 @@
 title: "La Circe"
 url: "https://www.rmwinslow.com"
 baseurl: "/circe"
-remote_theme: RMWinslow/just-the-docs-tweaked
+remote_theme: RMWinslow/JTD-RWM
 search_enabled: true
 
 gh_edit_link: false  # show or hide edit this page link
