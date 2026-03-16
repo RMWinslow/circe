@@ -228,6 +228,7 @@ for idx, match in enumerate(boundaries):
         if subtitle:
             f.write(f"subtitle: \"{subtitle}\"\n")
         f.write(f"nav_order: {dialog_num}\nlayout: post\n---\n\n")
+        f.write("---\n\n")
         f.write(chapter_text.strip() + "\n")
 
     print(f"  Dialog {dialog_num:2d}: ch/{dialog_num}.md (subtitle: {subtitle})")
