@@ -2,6 +2,7 @@
 title: "The Argument"
 nav_order: -1
 layout: post
+nav_exclude: true
 ---
 
 ---

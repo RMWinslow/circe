@@ -143,32 +143,46 @@ for fname, title, nav_order, page_nums in FRONT_MATTER:
     outpath = os.path.join(CH_DIR, fname)
     with open(outpath, "w", encoding="utf-8") as f:
         f.write(f"---\ntitle: \"{title}\"\n")
-        f.write(f"nav_order: {nav_order}\nlayout: post\n---\n\n")
+        f.write(f"nav_order: {nav_order}\nlayout: post\nnav_exclude: true\n---\n\n")
         f.write(body.strip() + "\n")
 
     print(f"  -> ch/{fname}")
 
 # --- Phase 2: Build ch/all.md ---
 
-print("Phase 2: Building ch/all.md from all dialogue pages...")
+print("Phase 2: Building ch/all.md from all pages...")
 
-pages = []
+# Front-matter pages (title page through argument)
+fm_pages = []
+for scan in range(7, FIRST_PAGE):
+    raw = read_page(scan)
+    if raw is None:
+        continue
+    text = strip_header(raw)
+    text = strip_catchword(text)
+    fm_pages.append(text.strip())
+
+front_text = join_pages([p for p in fm_pages if p])
+
+# Dialogue pages
+dialog_pages = []
 for scan in range(FIRST_PAGE, LAST_PAGE + 1):
     raw = read_page(scan)
     if raw is None:
         continue
     text = strip_header(raw)
     text = strip_catchword(text)
-    pages.append(text.strip())
+    dialog_pages.append(text.strip())
 
-all_text = join_pages([p for p in pages if p])
+all_text = join_pages([p for p in dialog_pages if p])
 
 all_path = os.path.join(CH_DIR, "all.md")
 with open(all_path, "w", encoding="utf-8") as f:
-    f.write("---\ntitle: \"La Circe — Complete Text\"\nnav_exclude: true\n---\n\n")
+    f.write("---\ntitle: \"La Circe — Complete Text\"\nnav_exclude: true\nsearch_exclude: true\n---\n\n")
+    f.write(front_text.strip() + "\n\n")
     f.write(all_text.strip() + "\n")
 
-print(f"  -> ch/all.md ({len(all_text)} chars)")
+print(f"  -> ch/all.md ({len(front_text) + len(all_text)} chars)")
 
 # --- Phase 3: Split into individual chapters ---
 

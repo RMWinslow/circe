@@ -2,6 +2,7 @@
 title: "To the Reader"
 nav_order: -2
 layout: post
+nav_exclude: true
 ---
 
 TO THE

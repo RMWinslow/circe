@@ -2,6 +2,7 @@
 title: "Title Page"
 nav_order: -3
 layout: post
+nav_exclude: true
 ---
 
 [handwritten: cost / 3-6b / october / 1712]

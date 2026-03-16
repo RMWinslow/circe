@@ -142,6 +142,8 @@ circe/
   "The Argument") — currently output as separate ch/ files by merge_pages.py, but it
   might be better to manually transpose the Argument into the start of ch/1.md, fold
   the preface into index.md, etc.
+- [ ] Include a link to ch/all.md somewhere on the site (currently nav_exclude
+  and search_exclude, so it's only reachable by direct URL)
 
 ## What has been tried
 
