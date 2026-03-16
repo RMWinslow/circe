@@ -48,25 +48,26 @@ def strip_header(text):
 
 
 def strip_catchword(text):
-    """Remove the catch-word (last non-empty line if it's a short standalone word)."""
+    """Remove the catch-word: the last non-empty line preceded by a blank line.
+
+    Catch-words were consistently placed on their own line with a blank line
+    before them in the per-page transcriptions, so we can strip unconditionally.
+    """
     lines = text.rstrip("\n").split("\n")
-    if not lines:
+    if len(lines) < 2:
         return text
 
+    # Find last non-empty line
     i = len(lines) - 1
     while i >= 0 and lines[i].strip() == "":
         i -= 1
 
-    if i < 0:
+    if i < 1:
         return text
 
-    last = lines[i].strip()
-    if (len(last.split()) <= 2
-            and not last.startswith("*")
-            and not last.startswith("[")
-            and not last.startswith("---")):
-        if i > 0 and lines[i - 1].strip() == "":
-            lines = lines[:i - 1]
+    # If preceded by a blank line, it's a catch-word — strip both
+    if lines[i - 1].strip() == "":
+        lines = lines[:i - 1]
 
     return "\n".join(lines)
 
@@ -91,6 +92,57 @@ def split_at_dialog_boundary(text):
         return text[:split_pos].rstrip(), text[split_pos:]
     else:
         return text[:match.start()].rstrip(), text[match.start():]
+
+
+def join_pages(pages):
+    """Join page texts, merging flowing text across page boundaries.
+
+    If one page ends mid-paragraph and the next starts with a continuation
+    (no blank line at end / no blank line at start), join them as one paragraph.
+    If a page ends with a trailing hyphen, rejoin the word.
+    """
+    if not pages:
+        return ""
+
+    result = pages[0]
+    for page in pages[1:]:
+        if not page:
+            continue
+
+        # Check if text flows across the boundary:
+        # Previous page ends mid-paragraph (no trailing blank line)
+        # and next page starts mid-paragraph (no leading blank line / heading)
+        prev_lines = result.rstrip("\n").split("\n")
+        next_lines = page.lstrip("\n").split("\n")
+
+        prev_last = prev_lines[-1] if prev_lines else ""
+        next_first = next_lines[0] if next_lines else ""
+
+        # Flowing text: previous ends with text (not blank, not ---) and
+        # next starts with a continuation of the same paragraph (lowercase
+        # or mid-sentence). A new speaker (*Name.*) or a heading always
+        # starts a new paragraph.
+        prev_is_text = prev_last.strip() != "" and prev_last.strip() != "---"
+        next_is_continuation = (next_first.strip() != ""
+                                and not next_first.startswith("---")
+                                and not next_first.startswith("Dialogue ")
+                                and not next_first.startswith("CIRCE")
+                                and not next_first.startswith("*")
+                                and not next_first.startswith("["))
+
+        if prev_is_text and next_is_continuation:
+            # Check for trailing hyphen — rejoin the word
+            if prev_last.rstrip().endswith("-"):
+                result = result.rstrip("\n").rstrip()
+                result = result[:-1]  # Remove the hyphen
+                result += page.lstrip("\n")
+            else:
+                # Join with a space (continuation of same paragraph)
+                result = result.rstrip("\n") + " " + page.lstrip("\n")
+        else:
+            result = result.rstrip("\n") + "\n\n" + page.lstrip("\n")
+
+    return result
 
 
 os.makedirs(CH_DIR, exist_ok=True)
@@ -125,7 +177,7 @@ for dialog_num, start, end, title in DIALOGS:
 
         pages.append(text)
 
-    merged = "\n\n".join(p.strip() for p in pages if p.strip())
+    merged = join_pages([p.strip() for p in pages if p.strip()])
 
     outpath = os.path.join(CH_DIR, f"{dialog_num}.md")
     with open(outpath, "w", encoding="utf-8") as f:
