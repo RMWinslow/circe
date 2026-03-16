@@ -39,6 +39,8 @@ Each output file is plain text. No markdown formatting except `*asterisks*` for 
   continuation (the next page's file should start with the remainder)
 - **Marginal notes / footnotes**: render as a bracketed note after the paragraph they
   annotate: `[* footnote text here]`
+- **Horizontal rules**: any decorative line or divider in the original, render as `---`
+  on its own line.
 
 ## Workflow
 
