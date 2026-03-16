@@ -1,10 +1,10 @@
 ——-
 title: The Circe
-subtitle: Of Signior Giovanni Battista Gelli of the Academy of *Florence*
+subtitle: Of Signior Giovanni Battista Gelli
+layout: post
 nav_order: 0
 ——-
 
-# La Circe
 
 <aside style="float: right; margin: 0 0 1em 1.5em; max-width: 280px;">
 <img src="pages/jpg_760w/b30535827_0007.jpg" alt="Title page of the 1702 edition: THE CIRCE OF Signior Giovanni Battista Gelli Of the Academy of FLORENCE. Consisting of Ten DIALOGUES between Men transform'd into Beasts: Giving a lively Representation of the various Passions, and many Infelicities of Humane Life. Done out of Italian, By Mr. THO. BROWN. LONDON: Printed for John Nutt near Stationers-Hall. 1702." style="width: 100%;">
