@@ -15,23 +15,16 @@ So here is a new transcription, using Claude Opus 4.6. I've instructed the robot
 
 ## The Table of the Dialogues.
 
-I. [*Ulysses* and *Circe*, with the *Oister*](ch/1), who had before his Transformation been a *Fisher-man*; and the *Mole*, who had been a *Plow-man*.
-
-II. [The same Dialogists, with the *Snake*](ch/2), who had been a *Physician*.
-
-III. [The same, with the *Hare*](ch/3), a Country-Gentleman.
-
-IV. [——the *Goat*](ch/4), a Citizen of *Corinth*.
-
-V. [——the *Hind*](ch/5), a *Grecian* Woman.
-
-VI. [——the *Lion*](ch/6), a Sailor.
-
-VII. [——the *Horse*](ch/7),——
-
-VIII. [——the *Dog*](ch/8), a Gentleman of Learning.
-
-IX. [——the *Calf*](ch/9).——
-
-X. [——the *Elephant*](ch/10), a Philosopher.
+<ol type="I">
+<li><a href="ch/1"><em>Ulysses</em> and <em>Circe</em>, with the <em>Oister</em>, who had before his Transformation been a <em>Fisher-man</em>; and the <em>Mole</em>, who had been a <em>Plow-man</em>.</a></li>
+<li><a href="ch/2">The same Dialogists, with the <em>Snake</em>, who had been a <em>Physician</em>.</a></li>
+<li><a href="ch/3">The same, with the <em>Hare</em>, a Country-Gentleman.</a></li>
+<li><a href="ch/4">——the <em>Goat</em>, a Citizen of <em>Corinth</em>.</a></li>
+<li><a href="ch/5">——the <em>Hind</em>, a <em>Grecian</em> Woman.</a></li>
+<li><a href="ch/6">——the <em>Lion</em>, a Sailor.</a></li>
+<li><a href="ch/7">——the <em>Horse</em>,——</a></li>
+<li><a href="ch/8">——the <em>Dog</em>, a Gentleman of Learning.</a></li>
+<li><a href="ch/9">——the <em>Calf</em>.——</a></li>
+<li><a href="ch/10">——the <em>Elephant</em>, a Philosopher.</a></li>
+</ol>
 
