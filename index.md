@@ -1,9 +1,9 @@
-——-
+---
 title: The Circe
 subtitle: Of Signior Giovanni Battista Gelli
 layout: post
 nav_order: 0
-——-
+---
 
 
 <aside style="float: right; margin: 0 0 1em 1.5em; max-width: 280px;">
