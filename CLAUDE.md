@@ -53,9 +53,58 @@ circe/
   in `_config.yaml`). It is the reference for what still needs to be transcribed.
 - **ch/** contains the "real" transcriptions — manually cleaned and corrected.
 - **abbr/** contains condensed/abridged versions, not full transcriptions.
-- Only **Dialog 1** has any significant transcription work done. The project is very
-  early stage — roughly 3–4% of the raw text has been manually processed.
 - The JP2 scans are kept locally for reference but are gitignored.
+
+## Structure of the 1702 edition (318 scans, pages 0000–0317)
+
+```
+0000        Colour calibration card (digitizer artifact)
+0001        Marbled endpaper (front)
+0002        Shelfmark page ("Supp 59987/B" handwritten)
+0003        Blank
+0004        Internet Archive digitization notice
+0005        Blank flyleaf (with faint handwritten marks)
+0006        Blank
+0007        TITLE PAGE — "The Circe of Signior Giovanni Battista Gelli"
+0008        Blank (title page verso, with library stamp bleed-through)
+0009        "To the Reader" (preface by Thomas Brown), p. 1
+0010        "To the Reader", p. 2 (conclusion)
+0011        "The Table of the Dialogues" (table of contents)
+0012        Blank (table verso, bleed-through)
+0013        "The Argument to the ensuing Dialogues", p. 1
+0014        "The Argument", p. 2 (conclusion)
+0015–0044   Dialog I: Oister & Mole (pp. 1–30)
+0045–0078   Dialog II: the Snake (pp. 31–64)
+0079–0113   Dialog III: the Hare (pp. 65–99)
+0114–0140   Dialog IV: the Goat (pp. 100–126)
+0140–0160   Dialog V: the Hind (pp. 126–146)
+0161–0186   Dialog VI: the Lyon (pp. 147–172)
+0187–0211   Dialog VII: the Horse (pp. 173–197)
+0212–0238   Dialog VIII: the Dog (pp. 198–224)
+0239–0267   Dialog IX: the Bullock (pp. 225–253)
+0267–0309   Dialog X: the Elephant (pp. 253–295) — FINIS
+0310        Publisher's catalogue (John Nutt)
+0311        Blank
+0312        Handwritten note: "Ulysses quotes Milton, p. 291."
+0313–0315   Blank
+0316        Marbled endpaper (back)
+0317        Colour calibration card (digitizer artifact)
+```
+
+### The ten dialogues
+
+| # | Animal | Former occupation | Pages | Outcome |
+|---|--------|-------------------|-------|---------|
+| I | Oister & Mole | Fisherman / Ploughman | 1–30 | Both refuse |
+| II | Snake | Physician | 31–64 | Refuses |
+| III | Hare | Country-Gentleman | 65–99 | Refuses |
+| IV | Goat | Citizen of Corinth | 100–126 | Refuses |
+| V | Hind | Grecian Woman | 127–146 | Refuses |
+| VI | Lyon | Sailor | 147–172 | Refuses |
+| VII | Horse | (not specified) | 173–197 | Refuses |
+| VIII | Dog | Gentleman of Learning | 198–224 | Refuses |
+| IX | Calf/Bullock | (not specified) | 225–253 | Refuses |
+| X | Elephant | Philosopher (Aglaophemus) | 253–295 | Accepts |
 
 ## Source material
 
@@ -65,13 +114,11 @@ circe/
 
 ## Current status and todos
 
-- [ ] Dialog 1 (Oyster & Mole): partially transcribed in `ch/1.md` — needs review and completion
-- [ ] Dialogs 2–11: not yet transcribed
-- [ ] Determine the full list of dialogs and their animal/character pairings
-- [ ] Decide on a consistent approach to modernizing spelling vs. preserving period forms
-- [ ] Continue page-by-page transcription beyond page 0029 (see workflow below)
-- [ ] Second pass on `pages_txt/` to modernize spellings once raw transcription is complete
+- [x] Page-by-page transcription of the entire book (pages 0007–0310) — DONE
+- [ ] Review and proofread the per-page transcriptions against the scans
+- [ ] Second pass on `pages_txt/` to modernize spellings
 - [ ] Assemble per-page transcriptions into full dialog chapters in `ch/`
+- [ ] Dialog 1 partial transcription in `ch/1.md` predates the per-page work — reconcile
 
 ## What has been tried
 
