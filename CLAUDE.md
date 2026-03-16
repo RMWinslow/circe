@@ -132,6 +132,9 @@ circe/
 - [x] Modernized spelling pass (pages_txt_modernized/) — DONE
 - [x] Merged dialog chapters in ch/ — DONE
 - [ ] Review and proofread the per-page transcriptions against the scans
+- [ ] Check for missed marginal notes / footnotes — only two found so far:
+  p. 8 (0022, the Portico) and p. 202 (0216, "He means Sicily"). The original
+  has marginal notes in small type that are easy to overlook.
 - [ ] Rebuild ch/ from pages_txt_modernized/ for a modernized-spelling edition
 - [ ] Decide whether the Jekyll site should serve original or modernized text (or both)
 

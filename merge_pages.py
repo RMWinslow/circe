@@ -167,11 +167,32 @@ for idx, match in enumerate(boundaries):
 
     chapter_text = all_text[start:end].strip()
 
+    # Strip the header chunk: everything up to and including the interlocutor line.
+    # Pattern: optional "CIRCE.\n\n---\n\n" then "Dialogue N.\n\n---\n\n*interlocutors*"
+    header_match = re.match(
+        r'(?:---\n\n)?'           # optional leading ---
+        r'(?:CIRCE\.\n\n---\n\n)?'  # optional "CIRCE." heading (Dialog I only)
+        r'Dialogue [IVXL]+\.\n\n'
+        r'---\n\n'
+        r'(.+?)\n',              # interlocutor line (capture for subtitle)
+        chapter_text
+    )
+    if header_match:
+        subtitle_raw = header_match.group(1)
+        # Strip asterisks to get plain text subtitle
+        subtitle = subtitle_raw.replace("*", "")
+        chapter_text = chapter_text[header_match.end():].lstrip("\n")
+    else:
+        subtitle = ""
+
     outpath = os.path.join(CH_DIR, f"{dialog_num}.md")
     with open(outpath, "w", encoding="utf-8") as f:
-        f.write(f"---\ntitle: \"{title}\"\nnav_order: {dialog_num}\n---\n\n")
-        f.write(chapter_text + "\n")
+        f.write(f"---\ntitle: \"{title}\"\n")
+        if subtitle:
+            f.write(f"subtitle: \"{subtitle}\"\n")
+        f.write(f"nav_order: {dialog_num}\nlayout: post\n---\n\n")
+        f.write(chapter_text.strip() + "\n")
 
-    print(f"  Dialog {dialog_num:2d}: ch/{dialog_num}.md")
+    print(f"  Dialog {dialog_num:2d}: ch/{dialog_num}.md (subtitle: {subtitle})")
 
 print("Done.")
