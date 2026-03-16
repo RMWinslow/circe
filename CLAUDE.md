@@ -34,19 +34,22 @@ Thomas Brown's translation, but it is not in the public domain.
 
 ```
 circe/
+├── index.md               # Jekyll site homepage (table of dialogues)
+├── README.md              # GitHub repo description
 ├── CLAUDE.md              # This file — project context for Claude (nav_exclude)
-├── README.md              # Brief project description
 ├── _config.yaml           # Jekyll / GitHub Pages config (just-the-docs-tweaked theme)
 ├── .gitignore             # Excludes JP2 scans and downscaled images
 ├── fullraw.md             # Raw OCR dump from Internet Archive (nav_exclude)
 ├── resize_pages.py        # Script: JP2 → 760px-wide JPGs in pages_760w/
 ├── resize_pages_bw.py     # Script: JP2 → 760h BW JPGs (experiment, not used)
-├── merge_pages.py         # Script: pages_txt/ → ch/ (merges per-page into chapters)
+├── merge_pages.py         # Script: pages_txt/ → ch/ (builds all.md, splits chapters)
 ├── pages_760w/            # Downscaled page scans (760px wide JPGs, gitignored)
 ├── pages_760h_bw/         # BW experiment output (gitignored)
 ├── pages_txt/             # Per-page transcriptions, original spelling (303 files)
 ├── pages_txt_modernized/  # Per-page transcriptions, modernized spelling (303 files)
-├── ch/                    # Merged dialog chapters (1.md–10.md), built by merge_pages.py
+├── ch/                    # Merged dialog chapters, built by merge_pages.py
+│   ├── all.md             # Complete text in one file (nav_exclude)
+│   ├── 1.md – 10.md       # Individual chapters (layout: post, with subtitle)
 ├── abbr/                  # Abbreviated / abridged versions of dialogs (legacy)
 │   ├── 1.md               # Dialog 1: Oyster (& Mole) — abridged
 │   └── 2.md               # Dialog 2 — stub
@@ -59,14 +62,19 @@ circe/
 
 ### Key details
 
+- **index.md** is the Jekyll site homepage (served at rmwinslow.com/circe).
+  **README.md** is the GitHub repo page (separate file, not processed by Jekyll).
 - **pages_txt/** contains the authoritative per-page transcriptions with original 1702
   spelling. These are the ground truth, transcribed from the 760px-wide page scans.
 - **pages_txt_modernized/** contains the same transcriptions with spelling updated to
   modern English (wou'd → would, Oister → Oyster, Lyon → Lion, etc.).
 - **ch/** contains merged dialog chapters built from pages_txt/ by merge_pages.py.
-  These strip headers, catch-words, and join text flowing across page boundaries.
+  The script first builds `all.md` (complete text), then splits into individual chapters
+  by finding `Dialogue N.` lines. Chapter files have `layout: post` and a `subtitle`
+  field with the interlocutor list. Headers, catch-words, and page-break artifacts are
+  stripped; flowing text is joined; hyphenated words are rejoined.
 - **fullraw.md** is the raw OCR text from the Internet Archive, kept for reference but
-  hidden from site navigation (`nav_exclude: True` in `_config.yaml`).
+  hidden from site navigation.
 - **abbr/** contains condensed/abridged versions, predating the full transcription.
 
 ## Structure of the 1702 edition (318 scans, pages 0000–0317)
