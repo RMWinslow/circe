@@ -1,3 +1,7 @@
+---
+nav_exclude: true
+---
+
 # CLAUDE.md
 
 ## Style and communication
@@ -30,30 +34,40 @@ Thomas Brown's translation, but it is not in the public domain.
 
 ```
 circe/
-├── CLAUDE.md              # This file — project context for Claude
+├── CLAUDE.md              # This file — project context for Claude (nav_exclude)
 ├── README.md              # Brief project description
 ├── _config.yaml           # Jekyll / GitHub Pages config (just-the-docs-tweaked theme)
-├── .gitignore             # Excludes all 318 JP2 page scans
-├── fullraw.md             # Raw OCR dump from Internet Archive (~11,700 lines)
+├── .gitignore             # Excludes JP2 scans and downscaled images
+├── fullraw.md             # Raw OCR dump from Internet Archive (nav_exclude)
+├── resize_pages.py        # Script: JP2 → 760px-wide JPGs in pages_760w/
+├── resize_pages_bw.py     # Script: JP2 → 760h BW JPGs (experiment, not used)
+├── merge_pages.py         # Script: pages_txt/ → ch/ (merges per-page into chapters)
 ├── pages_760w/            # Downscaled page scans (760px wide JPGs, gitignored)
-├── pages_txt/             # Per-page transcriptions from scans (tracked in git)
-│   └── b30535827_0020.txt ... (one .txt per page image)
-├── abbr/                  # Abbreviated / abridged versions of dialogs
-│   ├── 1.md               # Dialog 1: Oyster (& Mole) — abridged (~51 lines)
-│   └── 2.md               # Dialog 2 — stub (~10 lines)
-├── ch/                    # Cleaned-up chapter transcriptions
-│   └── 1.md               # Dialog 1: Oyster & Mole — partially cleaned (~421 lines)
+├── pages_760h_bw/         # BW experiment output (gitignored)
+├── pages_txt/             # Per-page transcriptions, original spelling (303 files)
+├── pages_txt_modernized/  # Per-page transcriptions, modernized spelling (303 files)
+├── ch/                    # Merged dialog chapters (1.md–10.md), built by merge_pages.py
+├── abbr/                  # Abbreviated / abridged versions of dialogs (legacy)
+│   ├── 1.md               # Dialog 1: Oyster (& Mole) — abridged
+│   └── 2.md               # Dialog 2 — stub
+├── .claude/
+│   └── skills/
+│       └── transcribe/    # /transcribe skill for page-by-page transcription
 └── SINGLE PAGE PROCESSED JP2/   # High-res page scans (untracked, ~200 MB)
     └── b30535827_0000.jp2 ... b30535827_0317.jp2  (318 files)
 ```
 
 ### Key details
 
-- **fullraw.md** is the raw OCR text, hidden from site navigation (`nav_exclude: True`
-  in `_config.yaml`). It is the reference for what still needs to be transcribed.
-- **ch/** contains the "real" transcriptions — manually cleaned and corrected.
-- **abbr/** contains condensed/abridged versions, not full transcriptions.
-- The JP2 scans are kept locally for reference but are gitignored.
+- **pages_txt/** contains the authoritative per-page transcriptions with original 1702
+  spelling. These are the ground truth, transcribed from the 760px-wide page scans.
+- **pages_txt_modernized/** contains the same transcriptions with spelling updated to
+  modern English (wou'd → would, Oister → Oyster, Lyon → Lion, etc.).
+- **ch/** contains merged dialog chapters built from pages_txt/ by merge_pages.py.
+  These strip headers, catch-words, and join text flowing across page boundaries.
+- **fullraw.md** is the raw OCR text from the Internet Archive, kept for reference but
+  hidden from site navigation (`nav_exclude: True` in `_config.yaml`).
+- **abbr/** contains condensed/abridged versions, predating the full transcription.
 
 ## Structure of the 1702 edition (318 scans, pages 0000–0317)
 
@@ -115,25 +129,26 @@ circe/
 ## Current status and todos
 
 - [x] Page-by-page transcription of the entire book (pages 0007–0310) — DONE
+- [x] Modernized spelling pass (pages_txt_modernized/) — DONE
+- [x] Merged dialog chapters in ch/ — DONE
 - [ ] Review and proofread the per-page transcriptions against the scans
-- [ ] Second pass on `pages_txt/` to modernize spellings
-- [ ] Assemble per-page transcriptions into full dialog chapters in `ch/`
-- [ ] Dialog 1 partial transcription in `ch/1.md` predates the per-page work — reconcile
+- [ ] Rebuild ch/ from pages_txt_modernized/ for a modernized-spelling edition
+- [ ] Decide whether the Jekyll site should serve original or modernized text (or both)
 
 ## What has been tried
 
 - Raw OCR dump from Internet Archive was pulled into `fullraw.md` — confirmed to be
   heavily mangled, especially around long-s characters.
-- Some manual transcription and correction was done for Dialog 1 in `ch/1.md`.
-- Abbreviated versions were started in `abbr/` but seem to have been abandoned.
-- No automated OCR correction scripts or tools have been tried yet.
-- **Page-by-page transcription from scans** (2026-03-15): Transcribed pages 0020–0029
-  (printed pp. 6–15, Dialog I — Oister & Mole) from the 760px-wide JPGs using Claude's
-  vision. Results are in `pages_txt/`. This worked well — the downscaled images are
-  clearly readable. Marginal notes (e.g., the Portico footnote on p. 8) are rendered as
-  bracketed notes after the paragraph they annotate. Original spelling is preserved
-  exactly; only the long-s is corrected. Hyphenated line breaks are rejoined. Words split
-  across page boundaries end with `—` to mark continuation.
+- Some manual transcription and correction was done for Dialog 1 in `ch/1.md` before
+  the systematic per-page approach was adopted. The legacy `abbr/` files also predate it.
+- **Page-by-page transcription from scans** (2026-03-15/16): All 303 content pages
+  transcribed from 760px-wide JPGs using Claude's vision. The `/transcribe` skill
+  automates the process. Results are in `pages_txt/`.
+- **Modernized spelling** (2026-03-16): All pages modernized in parallel into
+  `pages_txt_modernized/`. Archaic forms (wou'd, tho', Oister, Lyon, Rhetorick, etc.)
+  updated to modern equivalents. Original spelling preserved in `pages_txt/`.
+- **BW image experiment** (2026-03-15): Tried threshold + crop + resize to 760h for
+  smaller images. Results were too noisy — sticking with 760w colour images.
 
 ## Page-by-page transcription workflow
 
@@ -145,6 +160,6 @@ Each page in `pages_760w/` gets a matching `.txt` file in `pages_txt/`. Format:
 - Italics marked with `*asterisks*`
 - Original spelling preserved exactly (only long-s → s corrected)
 - Marginal notes in brackets: `[* footnote text]`
-- Words split across pages end with `—`
+- Horizontal rules: `---` on its own line
 - Catch-words (the lone word at the bottom-right of each page) on their own line at the
   end of the file, separated by a blank line, not joined to the preceding sentence
