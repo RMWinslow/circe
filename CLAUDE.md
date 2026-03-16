@@ -138,6 +138,10 @@ circe/
   (requires changes to the JTD-RMW theme to support them)
 - [ ] Rebuild ch/ from pages/txt_modernized/ for a modernized-spelling edition
 - [ ] Decide whether the Jekyll site should serve original or modernized text (or both)
+- [ ] Reconsider how to handle the front-matter sections (title page, "To the Reader",
+  "The Argument") — currently output as separate ch/ files by merge_pages.py, but it
+  might be better to manually transpose the Argument into the start of ch/1.md, fold
+  the preface into index.md, etc.
 
 ## What has been tried
 
