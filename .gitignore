@@ -1,5 +1,2 @@
-SINGLE PAGE PROCESSED JP2/
-pages_760w/
-pages_760h_bw/
-pages/SINGLE PAGE PROCESSED JP2/
-pages/jpg_760w/
+pages/SINGLE PAGE PROCESSED JP2/*.jp2
+pages/jpg_760w/*.jpg
