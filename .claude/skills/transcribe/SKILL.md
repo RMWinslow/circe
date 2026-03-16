@@ -20,10 +20,17 @@ Page numbers are the 4-digit suffixes from the filenames, e.g., `b30535827_0030.
 
 Each output file is plain text. No markdown formatting except `*asterisks*` for italics.
 
-- **First line**: page number and running header as a comment:
-  `[p. 16 — Ulysses, Circe, Dial. I.]`
-- **Speaker names** on their own line, followed by a period: `Ulysses.` / `Oister.`
-- **Dialogue text** follows as a regular paragraph
+- **First line**: the running header transcribed as-is inside brackets, preserving the
+  original layout (page number on the left for verso pages, on the right for recto):
+  `[6 — Ulysses, Circe, — Dial. I.]` or `[— Oister, and Mole. — 7]`
+  Use em-dashes to separate the three zones (left, center, right). Empty zones
+  still get the dash: `[8 — Ulysses, Circe, —]`
+- **Speaker names** inline at the start of the paragraph, italicized:
+  `*Ulysses.* To hear thee talk thus...`
+  This matches the original printing, where the speaker name begins the paragraph in
+  italics. Do NOT put speaker names on a separate line from the dialogue.
+- If a page ends with just a speaker name (speech continues on the next page), put it on
+  its own line, still italicized: `*Oister.*`
 - **Italicized words** in the original (like *Greece*, *Eagle*) marked with `*asterisks*`
 - **Preserve all original spelling exactly** (e.g., "mony", "Julips", "Knowledg") — only
   fix the long-s (ſ → s) and actual OCR-type errors
@@ -48,7 +55,17 @@ Each output file is plain text. No markdown formatting except `*asterisks*` for 
 
 - The images are 760px wide JPGs — readable but sometimes marginal notes or small text
   can be tricky. When uncertain about a word, do your best and flag it with `[?]`.
-- Watch for the catch-word at the bottom of each page (a single word previewing the next
-  page) — do NOT include it in the transcription, as it is a printing artifact.
+- The **catch-word** at the bottom-right of each page (a single word previewing the next
+  page) is a printing artifact. Include it on its own line at the end of the file, NOT
+  joined to the preceding sentence. The next page's transcription should still start with
+  that same word as part of the running text. Example:
+  ```
+  ...since she sends us
+
+  into
+  ```
+  Then the next page starts: `into the World Cloathed...`
+  Note the blank line before the catch-word, consistent with the spacing between all
+  other elements in the file.
 - Running headers alternate between the two speakers' names on verso/recto pages.
 - The printed page number appears in the header area, not the filename number.

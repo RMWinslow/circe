@@ -92,9 +92,12 @@ circe/
 
 Each page in `pages_760w/` gets a matching `.txt` file in `pages_txt/`. Format:
 
-- First line: `[p. NN — Running Header]`
-- Speaker names on their own line followed by a period: `Ulysses.`
+- First line: running header in brackets with em-dash separators for the three zones:
+  `[6 — Ulysses, Circe, — Dial. I.]` or `[— Oister, and Mole. — 7]`
+- Speaker names inline at the start of the paragraph, italicized: `*Ulysses.* To hear...`
 - Italics marked with `*asterisks*`
 - Original spelling preserved exactly (only long-s → s corrected)
 - Marginal notes in brackets: `[* footnote text]`
 - Words split across pages end with `—`
+- Catch-words (the lone word at the bottom-right of each page) on their own line at the
+  end of the file, separated by a blank line, not joined to the preceding sentence
