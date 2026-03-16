@@ -39,43 +39,34 @@ circe/
 ├── CLAUDE.md              # This file — project context for Claude (nav_exclude)
 ├── _config.yaml           # Jekyll / GitHub Pages config (just-the-docs-tweaked theme)
 ├── .gitignore             # Excludes JP2 scans and downscaled images
-├── fullraw.md             # Raw OCR dump from Internet Archive (nav_exclude)
-├── resize_pages.py        # Script: JP2 → 760px-wide JPGs in pages_760w/
-├── resize_pages_bw.py     # Script: JP2 → 760h BW JPGs (experiment, not used)
-├── merge_pages.py         # Script: pages_txt/ → ch/ (builds all.md, splits chapters)
-├── pages_760w/            # Downscaled page scans (760px wide JPGs, gitignored)
-├── pages_760h_bw/         # BW experiment output (gitignored)
-├── pages_txt/             # Per-page transcriptions, original spelling (303 files)
-├── pages_txt_modernized/  # Per-page transcriptions, modernized spelling (303 files)
+├── resize_pages.py        # Script: JP2 → 760px-wide JPGs in pages/jpg_760w/
+├── merge_pages.py         # Script: pages/txt/ → ch/ (builds all.md, splits chapters)
+├── pages/                 # All page-level assets (scans and transcriptions)
+│   ├── SINGLE PAGE PROCESSED JP2/  # High-res scans (gitignored, ~200 MB, 318 files)
+│   ├── jpg_760w/          # Downscaled page scans (760px wide JPGs, gitignored)
+│   ├── txt/               # Per-page transcriptions, original spelling (303 files)
+│   └── txt_modernized/    # Per-page transcriptions, modernized spelling (303 files)
 ├── ch/                    # Merged dialog chapters, built by merge_pages.py
 │   ├── all.md             # Complete text in one file (nav_exclude)
-│   ├── 1.md – 10.md       # Individual chapters (layout: post, with subtitle)
-├── abbr/                  # Abbreviated / abridged versions of dialogs (legacy)
-│   ├── 1.md               # Dialog 1: Oyster (& Mole) — abridged
-│   └── 2.md               # Dialog 2 — stub
-├── .claude/
-│   └── skills/
-│       └── transcribe/    # /transcribe skill for page-by-page transcription
-└── SINGLE PAGE PROCESSED JP2/   # High-res page scans (untracked, ~200 MB)
-    └── b30535827_0000.jp2 ... b30535827_0317.jp2  (318 files)
+│   └── 1.md – 10.md       # Individual chapters (layout: post, with subtitle)
+└── .claude/
+    └── skills/
+        └── transcribe/    # /transcribe skill for page-by-page transcription
 ```
 
 ### Key details
 
 - **index.md** is the Jekyll site homepage (served at rmwinslow.com/circe).
   **README.md** is the GitHub repo page (separate file, not processed by Jekyll).
-- **pages_txt/** contains the authoritative per-page transcriptions with original 1702
+- **pages/txt/** contains the authoritative per-page transcriptions with original 1702
   spelling. These are the ground truth, transcribed from the 760px-wide page scans.
-- **pages_txt_modernized/** contains the same transcriptions with spelling updated to
+- **pages/txt_modernized/** contains the same transcriptions with spelling updated to
   modern English (wou'd → would, Oister → Oyster, Lyon → Lion, etc.).
-- **ch/** contains merged dialog chapters built from pages_txt/ by merge_pages.py.
+- **ch/** contains merged dialog chapters built from pages/txt/ by merge_pages.py.
   The script first builds `all.md` (complete text), then splits into individual chapters
   by finding `Dialogue N.` lines. Chapter files have `layout: post` and a `subtitle`
   field with the interlocutor list. Headers, catch-words, and page-break artifacts are
   stripped; flowing text is joined; hyphenated words are rejoined.
-- **fullraw.md** is the raw OCR text from the Internet Archive, kept for reference but
-  hidden from site navigation.
-- **abbr/** contains condensed/abridged versions, predating the full transcription.
 
 ## Structure of the 1702 edition (318 scans, pages 0000–0317)
 
@@ -137,7 +128,7 @@ circe/
 ## Current status and todos
 
 - [x] Page-by-page transcription of the entire book (pages 0007–0310) — DONE
-- [x] Modernized spelling pass (pages_txt_modernized/) — DONE
+- [x] Modernized spelling pass (pages/txt_modernized/) — DONE
 - [x] Merged dialog chapters in ch/ — DONE
 - [ ] Review and proofread the per-page transcriptions against the scans
 - [ ] Check for missed marginal notes / footnotes — only two found so far:
@@ -145,27 +136,27 @@ circe/
   has marginal notes in small type that are easy to overlook.
 - [ ] Add next/previous YAML fields to chapter files for navigation links
   (requires changes to the JTD-RMW theme to support them)
-- [ ] Rebuild ch/ from pages_txt_modernized/ for a modernized-spelling edition
+- [ ] Rebuild ch/ from pages/txt_modernized/ for a modernized-spelling edition
 - [ ] Decide whether the Jekyll site should serve original or modernized text (or both)
 
 ## What has been tried
 
-- Raw OCR dump from Internet Archive was pulled into `fullraw.md` — confirmed to be
-  heavily mangled, especially around long-s characters.
+- Raw OCR dump from Internet Archive was pulled into `fullraw.md` (since removed) —
+  confirmed to be heavily mangled, especially around long-s characters.
 - Some manual transcription and correction was done for Dialog 1 in `ch/1.md` before
-  the systematic per-page approach was adopted. The legacy `abbr/` files also predate it.
+  the systematic per-page approach was adopted.
 - **Page-by-page transcription from scans** (2026-03-15/16): All 303 content pages
   transcribed from 760px-wide JPGs using Claude's vision. The `/transcribe` skill
-  automates the process. Results are in `pages_txt/`.
+  automates the process. Results are in `pages/txt/`.
 - **Modernized spelling** (2026-03-16): All pages modernized in parallel into
-  `pages_txt_modernized/`. Archaic forms (wou'd, tho', Oister, Lyon, Rhetorick, etc.)
-  updated to modern equivalents. Original spelling preserved in `pages_txt/`.
+  `pages/txt_modernized/`. Archaic forms (wou'd, tho', Oister, Lyon, Rhetorick, etc.)
+  updated to modern equivalents. Original spelling preserved in `pages/txt/`.
 - **BW image experiment** (2026-03-15): Tried threshold + crop + resize to 760h for
   smaller images. Results were too noisy — sticking with 760w colour images.
 
 ## Page-by-page transcription workflow
 
-Each page in `pages_760w/` gets a matching `.txt` file in `pages_txt/`. Format:
+Each page in `pages/jpg_760w/` gets a matching `.txt` file in `pages/txt/`. Format:
 
 - First line: running header in brackets with em-dash separators for the three zones:
   `[6 — Ulysses, Circe, — Dial. I.]` or `[— Oister, and Mole. — 7]`
